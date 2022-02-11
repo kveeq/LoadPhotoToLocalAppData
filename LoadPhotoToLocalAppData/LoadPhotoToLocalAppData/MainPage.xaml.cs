@@ -94,11 +94,6 @@ namespace LoadPhotoToLocalAppData
             imgList.SelectedItem = 0;
         }
 
-        private void imgList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            //img.Source = ImageSource.FromFile(e.SelectedItem.ToString());
-        }
-
         private async void AddBtn_Clicked(object sender, EventArgs e)
         {
             try
@@ -112,6 +107,12 @@ namespace LoadPhotoToLocalAppData
             }
 
             UpdateList();
+        }
+
+        private async void imgList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            //img.Source = ImageSource.FromFile(e.SelectedItem.ToString());
+            await Navigation.PushAsync(new PhotoPage((CarModel)e.Item));
         }
     }
 }

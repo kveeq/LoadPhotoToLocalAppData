@@ -55,12 +55,15 @@
                 <ListView
                     x:Name="imgList"
                     HasUnevenRows="True"
-                    ItemSelected="imgList_ItemSelected">
+                    ItemTapped="imgList_ItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout>
-                                    <Label Text="{Binding Title}" />
+                                    <Label
+                                        Padding="10,20"
+                                        FontSize="18"
+                                        Text="{Binding Title}" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>
