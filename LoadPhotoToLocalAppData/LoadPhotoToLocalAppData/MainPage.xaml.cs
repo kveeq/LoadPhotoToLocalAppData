@@ -27,7 +27,6 @@ namespace LoadPhotoToLocalAppData
         private void GetItemsInDb()
         {
             imgList.ItemsSource = App.Db.GetItems();
-
         }
 
         async void GetPhotoAsync(object sender, EventArgs e)
