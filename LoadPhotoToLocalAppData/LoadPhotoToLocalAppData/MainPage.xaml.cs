@@ -16,6 +16,7 @@ namespace LoadPhotoToLocalAppData
     {
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         CarModel car;
+        string path;
 
         public MainPage()
         {
@@ -44,7 +45,8 @@ namespace LoadPhotoToLocalAppData
                 // загружаем в ImageView
 
                 img.Source = ImageSource.FromFile(photo.FullPath);
-                car = new CarModel(TitleEntry.Text, photo.FullPath);
+                path = photo.FullPath;
+
                 UpdateList();
             }
             catch (Exception ex)
@@ -76,6 +78,7 @@ namespace LoadPhotoToLocalAppData
                 Debug.WriteLine($"Путь фото {photo.FullPath}");
                 // загружаем в ImageView
                 img.Source = ImageSource.FromFile(photo.FullPath);
+                path = photo.FullPath;
                 UpdateList();
             }
             catch (Exception ex)
@@ -85,7 +88,9 @@ namespace LoadPhotoToLocalAppData
         }
         void UpdateList()
         {
-            imgList.ItemsSource = Directory.GetFiles(folderPath).Select(f => Path.GetFullPath(f));
+            //imgList.ItemsSource = Directory.GetFiles(folderPath).Select(f => Path.GetFullPath(f));
+            imgList.ItemsSource = null;
+            imgList.ItemsSource = App.Db.GetItems();
             imgList.SelectedItem = 0;
         }
 
@@ -98,12 +103,15 @@ namespace LoadPhotoToLocalAppData
         {
             try
             {
+                car = new CarModel(path, TitleEntry.Text);
                 App.Db.SaveItem(car);
             }
             catch (Exception ex)
             {
                 await DisplayAlert("", $"{ex.Message}", "Ok");
             }
+
+            UpdateList();
         }
     }
 }
