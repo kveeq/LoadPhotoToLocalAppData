@@ -15,24 +15,17 @@ namespace LoadPhotoToLocalAppData
     public partial class MainPage : ContentPage
     {
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        CarModel car;
         string path;
 
         public MainPage()
         {
             InitializeComponent();
-            GetItemsInDb();
-            car = new CarModel("Error", "SmallError");
+            UpdateList();
             imgList.RefreshCommand = new Command(() =>
             {
                 UpdateList();
                 imgList.IsRefreshing = false;
             });
-        }
-
-        private void GetItemsInDb()
-        {
-            imgList.ItemsSource = App.Db.GetItems();
         }
 
         async void GetPhotoAsync(object sender, EventArgs e)
@@ -68,18 +61,22 @@ namespace LoadPhotoToLocalAppData
             {
                 var photo = await MediaPicker.CapturePhotoAsync(new MediaPickerOptions
                 {
-                    Title = $"{TitleEntry.Text}.{DateTime.Now.ToString("dd.MM.yyyy_hh.mm.ss")}.png"
+                    Title = $"xamarin.{DateTime.Now.ToString("dd.MM.yyyy_hh.mm.ss")}.png"
                 });
 
                 // для примера сохраняем файл в локальном хранилище
                 var newFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), photo.FileName);
                 using (var stream = await photo.OpenReadAsync())
                 using (var newStream = File.OpenWrite(newFile))
+                {
                     await stream.CopyToAsync(newStream);
+                    await DisplayAlert("", "Copy", "ok");
+                }
 
                 Debug.WriteLine($"Путь фото {photo.FullPath}");
                 // загружаем в ImageView
                 path = photo.FullPath;
+                await DisplayAlert("", path, "ok");
             }
             catch (Exception ex)
             {
@@ -97,8 +94,7 @@ namespace LoadPhotoToLocalAppData
         {
             try
             {
-                car = new CarModel(path, TitleEntry.Text);
-                App.Db.SaveItem(car);
+                App.Db.SaveItem(new CarModel(path, TitleEntry.Text));
             }
             catch (Exception ex)
             {

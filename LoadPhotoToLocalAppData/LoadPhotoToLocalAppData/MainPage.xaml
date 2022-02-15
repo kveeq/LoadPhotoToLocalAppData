@@ -3,6 +3,7 @@
     x:Class="LoadPhotoToLocalAppData.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     Visual="Material">
 
     <StackLayout>
@@ -74,6 +75,7 @@
                                             Padding="10,20"
                                             FontSize="18"
                                             Text="{Binding Title}" />
+                                        <ff:CachedImage Margin="10,20" Source="{Binding Path}" />
                                     </StackLayout>
                                 </SwipeView>
                             </ViewCell>

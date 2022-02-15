@@ -3,18 +3,61 @@
     x:Class="LoadPhotoToLocalAppData.PhotoPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LoadPhotoToLocalAppData">
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:local="clr-namespace:LoadPhotoToLocalAppData"
+    xmlns:pz="clr-namespace:Xamarin.Forms.PinchZoomImage;assembly=Xamarin.Forms.PinchZoomImage">
 
-    <StackLayout Margin="30,20" Spacing="40">
+
+    <NavigationPage.TitleView>
         <Label
-            Padding="20"
-            BackgroundColor="LightGray"
-            FontSize="18"
-            Text="{x:Static local:PhotoPage.title}" />
-        <Image
-            x:Name="img"
-            Margin="0,0,0,100"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand" />
+            x:Name="EditConfirmIcon"
+            Margin="0,0,40,0"
+            FontFamily="MaterialIconsFont"
+            FontSize="Title"
+            HorizontalOptions="End"
+            IsVisible="false"
+            Text="&#xe876;"
+            TextColor="White"
+            VerticalOptions="CenterAndExpand">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+            </Label.GestureRecognizers>
+        </Label>
+    </NavigationPage.TitleView>
+
+    <StackLayout Margin="30,20" Spacing="10">
+        <StackLayout BackgroundColor="LightGray" Orientation="Horizontal">
+            <Entry
+                x:Name="titleEntry"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                IsEnabled="False"
+                Text="{x:Static local:PhotoPage.title}"
+                TextChanged="titleEntry_TextChanged" />
+            <Label
+                FontFamily="MaterialIconsFont"
+                FontSize="24"
+                HorizontalOptions="EndAndExpand"
+                Text="&#xe3c9;"
+                VerticalOptions="CenterAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <ImageButton />
+        </StackLayout>
+        <pz:PinchZoom>
+            <Image
+                x:Name="img"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />
+        </pz:PinchZoom>
+        <Button
+            x:Name="EditPhotoBtn"
+            Clicked="EditPhotoBtn_Clicked"
+            CornerRadius="20"
+            HorizontalOptions="CenterAndExpand"
+            Text="Изменить фотографию"
+            VerticalOptions="EndAndExpand" />
     </StackLayout>
 </ContentPage>

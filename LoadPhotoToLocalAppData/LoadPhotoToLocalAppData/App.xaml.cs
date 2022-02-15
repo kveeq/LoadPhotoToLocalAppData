@@ -4,6 +4,7 @@ using LoadPhotoToLocalAppData.db;
 using Xamarin.Forms.Xaml;
 using System.IO;
 
+[assembly: ExportFont("MaterialIcons-Regular.ttf", Alias = "MaterialIconsFont")]
 namespace LoadPhotoToLocalAppData
 {
     public partial class App : Application
