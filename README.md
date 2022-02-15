@@ -1,3 +1,4 @@
+![GitLab Release (custom instance)](https://img.shields.io/gitlab/v/release/GNOME/librsvg?color=g&date_order_by=created_at&gitlab_url=https%3A%2F%2Fgitlab.gnome.org&include_prereleases&label=Release&sort=semver)
 ![GitLab Release (custom instance)](https://img.shields.io/gitlab/v/release/GNOME/librsvg?color=g&date_order_by=created_at&gitlab_url=https%3A%2F%2Fgitlab.gnome.org&include_prereleases&label=Alpha&sort=semver)
 # Кросс-платформенное приложение LoadPhotoToLocalAppData
 ## Написано на языке программирования **C#** на фреймворке **Xamarin**
