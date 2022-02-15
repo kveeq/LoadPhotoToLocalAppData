@@ -23,6 +23,11 @@ namespace LoadPhotoToLocalAppData
             InitializeComponent();
             GetItemsInDb();
             car = new CarModel("Error", "SmallError");
+            imgList.RefreshCommand = new Command(() =>
+            {
+                UpdateList();
+                imgList.IsRefreshing = false;
+            });
         }
 
         private void GetItemsInDb()
@@ -44,10 +49,7 @@ namespace LoadPhotoToLocalAppData
 
                 // загружаем в ImageView
 
-                img.Source = ImageSource.FromFile(photo.FullPath);
                 path = photo.FullPath;
-
-                UpdateList();
             }
             catch (Exception ex)
             {
@@ -77,9 +79,7 @@ namespace LoadPhotoToLocalAppData
 
                 Debug.WriteLine($"Путь фото {photo.FullPath}");
                 // загружаем в ImageView
-                img.Source = ImageSource.FromFile(photo.FullPath);
                 path = photo.FullPath;
-                UpdateList();
             }
             catch (Exception ex)
             {
@@ -91,7 +91,6 @@ namespace LoadPhotoToLocalAppData
             //imgList.ItemsSource = Directory.GetFiles(folderPath).Select(f => Path.GetFullPath(f));
             imgList.ItemsSource = null;
             imgList.ItemsSource = App.Db.GetItems();
-            imgList.SelectedItem = 0;
         }
 
         private async void AddBtn_Clicked(object sender, EventArgs e)
@@ -105,14 +104,26 @@ namespace LoadPhotoToLocalAppData
             {
                 await DisplayAlert("", $"{ex.Message}", "Ok");
             }
-
-            UpdateList();
         }
 
         private async void imgList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             //img.Source = ImageSource.FromFile(e.SelectedItem.ToString());
             await Navigation.PushAsync(new PhotoPage((CarModel)e.Item));
+        }
+
+        private void SwipeItem_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var id = ((SwipeItem)sender).CommandParameter.ToString();
+                App.Db.DeleteItem(int.Parse(id));
+                UpdateList();
+            }
+            catch (Exception ex)
+            {
+                DisplayAlert("", ex.Message, "ok");
+            }
         }
     }
 }

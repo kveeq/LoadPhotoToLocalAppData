@@ -50,21 +50,32 @@
         </StackLayout>
         <ScrollView>
             <StackLayout>
-                <Image x:Name="img" />
-
                 <ListView
                     x:Name="imgList"
                     HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
                     ItemTapped="imgList_ItemTapped">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                    <Label
-                                        Padding="10,20"
-                                        FontSize="18"
-                                        Text="{Binding Title}" />
-                                </StackLayout>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem
+                                                BackgroundColor="Red"
+                                                Clicked="SwipeItem_Clicked"
+                                                CommandParameter="{Binding Id}"
+                                                IconImageSource="vector.png"
+                                                Text="удалить" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout>
+                                        <Label
+                                            Padding="10,20"
+                                            FontSize="18"
+                                            Text="{Binding Title}" />
+                                    </StackLayout>
+                                </SwipeView>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
